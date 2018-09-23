@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, NgZone } from '@angular/core';
 import { ApiServices } from '../services/http-services';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -111,35 +111,34 @@ export class MapsComponent implements AfterViewInit {
 		}
 	]
 
-	constructor(private apiService: ApiServices, private router: Router) {
-		this.apiService.fetchLibraries().subscribe(lib => {
-			lib.map(library => {
-				const geo = library.location;
-				const latLng = new google.maps.LatLng(geo.lat, geo.lng);
-				const id = library.name;
-				if (this.map) {
-					this.setMarker([latLng, id]);
-				} else {
-					this.markerTemp.push([latLng, id]);
-				}
-			});
-		});
-		this.apiService.fetchMapPolys().subscribe(polys => {
-			for (const key in polys) {
-				if (polys.hasOwnProperty(key)) {
-					if (this.map) {
-						// this.setPolyGons(polys[key]);
-					} else {
-						this.polys.push(polys[key]);
-					}
-				}
-			}
-
-		});
+	constructor(private apiService: ApiServices, private router: Router, private ngZone: NgZone) {
+		// this.apiService.fetchMapPolys().subscribe(polys => {
+		// 	for (const key in polys) {
+		// 		if (polys.hasOwnProperty(key)) {
+		// 			if (this.map) {
+		// 				// this.setPolyGons(polys[key]);
+		// 			} else {
+		// 				this.polys.push(polys[key]);
+		// 			}
+		// 		}
+		// 	}
+		// });
 	}
 
 	ngAfterViewInit() {
 		if (!this.isLoaded) {
+			this.apiService.fetchLibraries().subscribe(lib => {
+				lib.map(library => {
+					const geo = library.location;
+					const latLng = new google.maps.LatLng(geo.lat, geo.lng);
+					const id = library.name;
+					if (this.map) {
+						this.setMarker([latLng, id]);
+					} else {
+						this.markerTemp.push([latLng, id]);
+					}
+				});
+			});
 			const myLatlng = new google.maps.LatLng(43.6690207, -79.3916043);
 			const mapOptions = {
 				zoom: 13,
@@ -165,7 +164,11 @@ export class MapsComponent implements AfterViewInit {
 			icon: 'https://elevate-smart-library.appspot.com/img/pin.png'
 		});
 		Marker.setMap(this.map);
-		google.maps.event.addListener(Marker, 'click', (() => this.router.navigate(['/dashboard', marker[1]])));
+		google.maps.event.addListener(Marker, 'click', (() => {
+			this.ngZone.run(() => {
+				this.router.navigateByUrl('/dashboard');
+			});
+		}));
 	}
 
 	setPolyGons(poly) {

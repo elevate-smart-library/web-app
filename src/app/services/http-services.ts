@@ -15,7 +15,6 @@ export class ApiServices {
 
 	fetchLibraries(): Observable<any> {
 		const path = this.baseUrl + 'libraries';
-		// return Observable.of(this.libraries);
 		return this.appHttp.get(path);
 	}
 
@@ -40,7 +39,6 @@ export class ApiServices {
 					if (response instanceof Array ) {
 						const parsed = response.slice(0, 6);
 						const string = JSON.stringify(parsed);
-						console.log(string);
 						localStorage.setItem('events', string);
 						return response;
 					}

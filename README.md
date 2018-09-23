@@ -6,3 +6,10 @@
 
 + [Live Preview...coming soon](#)
 
+## Third Party Data Used:
+
+Aside from our API services there are some existing data resources being used in the Dashboard
+
++ [Toronto Public Library Live Search](http://dashboard.tpllabs.ca/index.html)
++ [Toronto Public Library Events](https://opendata.tpl.ca/resources/events)
+

@@ -17,3 +17,7 @@
 .empty-book {
 	margin: 100px 0 25px;
 }
+.book-title {
+	font-size: 1.2rem;
+	line-height: .1em;
+}

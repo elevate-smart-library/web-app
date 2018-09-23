@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { LegendItem, ChartType } from '../lbd/lbd-chart/lbd-chart.component';
 import * as Chartist from 'chartist';
@@ -47,8 +47,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 			return {
 				terms: data[0].terms,
 				browser: data[0].browser
-			}
+			};
 		});
+	}
+
+	ngOnInit() {
+		console.log('hello')
 		this.emailChartType = ChartType.Pie;
 		this.emailChartData = {
 			labels: ['45%', '49%', '6%'],
@@ -133,9 +137,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 			{ title: 'Romance', imageClass: 'fa fa-circle text-warning' },
 			{ title: 'Non-Fiction', imageClass: 'fa fa-circle text-secondary' }
 		];
-	}
-
-	ngOnInit() {
 	}
 
 	ngOnDestroy() {
