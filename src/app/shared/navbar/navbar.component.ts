@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -57,6 +57,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 	getTitle() {
 		let titlee = this.location.prepareExternalUrl(this.location.path());
 		titlee = titlee.split('/').pop();
+		this.sub = this.route.firstChild ? this.route.firstChild.params.subscribe(params => {
+			this.id = params['library'] ? ' - ' + params['library'] : null;
+		}) : null;
 		for (let item = 0; item < this.listTitles.length; item++) {
 			if (this.listTitles[item].path === titlee) {
 				return this.listTitles[item].title;

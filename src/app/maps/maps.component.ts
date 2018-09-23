@@ -109,7 +109,7 @@ export class MapsComponent implements AfterViewInit {
 				}
 			]
 		}
-	]
+	];
 
 	constructor(private apiService: ApiServices, private router: Router, private ngZone: NgZone) {
 		// this.apiService.fetchMapPolys().subscribe(polys => {
@@ -132,10 +132,11 @@ export class MapsComponent implements AfterViewInit {
 					const geo = library.location;
 					const latLng = new google.maps.LatLng(geo.lat, geo.lng);
 					const id = library.name;
+					const type = library.type;
 					if (this.map) {
-						this.setMarker([latLng, id]);
+						this.setMarker([latLng, id, type]);
 					} else {
-						this.markerTemp.push([latLng, id]);
+						this.markerTemp.push([latLng, id, type]);
 					}
 				});
 			});
@@ -158,15 +159,16 @@ export class MapsComponent implements AfterViewInit {
 	}
 
 	setMarker(marker) {
+		const baseImgPath = 'https://elevate-smart-library.appspot.com/img/';
 		const Marker = new google.maps.Marker({
 			position: marker[0],
 			title: marker[1],
-			icon: 'https://elevate-smart-library.appspot.com/img/pin.png'
+			icon: marker[2] === 'HOME' ? baseImgPath + 'pin2.png' : baseImgPath + 'pin.png'
 		});
 		Marker.setMap(this.map);
 		google.maps.event.addListener(Marker, 'click', (() => {
 			this.ngZone.run(() => {
-				this.router.navigateByUrl('/dashboard');
+				this.router.navigateByUrl('/dashboard/' + marker[1]);
 			});
 		}));
 	}
