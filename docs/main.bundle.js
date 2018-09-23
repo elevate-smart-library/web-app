@@ -1157,7 +1157,7 @@ exports.NavbarModule = NavbarModule;
 /***/ "./src/app/sidebar/sidebar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"sidebar-wrapper\">\n    <div class=\"logo\">\n        <span class=\"simple-text\">\n            <div class=\"logo-img\">\n                <img src=\"/assets/img/angular2-logo-white.png\"/>\n            </div>\n            Smart Library\n        </span>\n    </div>\n    <ul class=\"nav responsive-nav\">\n        <li routerLinkActive=\"active\" *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}}\">\n            <a  [routerLink]=\"[menuItem.path]\">\n                <i class=\"{{menuItem.icon}}\"></i>\n                <p>{{menuItem.title}}</p>\n            </a>\n        </li>\n    </ul>\n</div>\n"
+module.exports = "\n<div class=\"sidebar-wrapper\">\n    <div class=\"logo\">\n        <span class=\"simple-text\">\n            <div class=\"logo-img\">\n                <img src=\"/assets/img/Logo_White.svg\"/>\n            </div>\n            Smart Library\n        </span>\n    </div>\n    <ul class=\"nav responsive-nav\">\n        <li routerLinkActive=\"active\" *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}}\">\n            <a  [routerLink]=\"[menuItem.path]\">\n                <i class=\"{{menuItem.icon}}\"></i>\n                <p>{{menuItem.title}}</p>\n            </a>\n        </li>\n    </ul>\n</div>\n"
 
 /***/ }),
 
