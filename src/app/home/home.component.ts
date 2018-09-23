@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { LegendItem, ChartType } from '../lbd/lbd-chart/lbd-chart.component';
 import * as Chartist from 'chartist';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { ApiServices } from '../services/http-services';
+import { WebsocketService } from '../services/websocket-services';
 
+interface SearchResult {
+	terms: string;
+	browser: string;
+}
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css']
+	styleUrls: ['./home.component.css'],
+	providers: [ApiServices, WebsocketService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 	public emailChartType: ChartType;
 	public emailChartData: any;
 	public emailChartLegendItems: LegendItem[];
@@ -24,27 +32,41 @@ export class HomeComponent implements OnInit {
 	public activityChartOptions: any;
 	public activityChartResponsive: any[];
 	public activityChartLegendItems: LegendItem[];
-	constructor() { }
 
-	ngOnInit() {
+	libEvents$: Observable<any>;
+	liveSearches$;
+	liveSearch = [];
+
+	constructor(private apiService: ApiServices, private webSocket: WebsocketService) {
+		this.libEvents$ = this.apiService.fetchEvents();
+		this.liveSearches$ = this.webSocket
+		.connect('ws://dashboard.tpllabs.ca:4571/rtsearches')
+		.subscribe((response: MessageEvent): SearchResult => {
+			const data = JSON.parse(response.data);
+			this.liveSearch.unshift(data[0]);
+			return {
+				terms: data[0].terms,
+				browser: data[0].browser
+			}
+		});
 		this.emailChartType = ChartType.Pie;
 		this.emailChartData = {
-			labels: ['12%', '82%', '6%'],
-			series: [12, 82, 6]
+			labels: ['45%', '49%', '6%'],
+			series: [45, 49, 6]
 		};
 		this.emailChartLegendItems = [
-			{ title: 'Empty', imageClass: 'fa fa-circle text-info' },
-			{ title: 'Has Stock', imageClass: 'fa fa-circle text-danger' },
-			{ title: 'Full', imageClass: 'fa fa-circle text-warning' }
+			{ title: 'Books Out', imageClass: 'fa fa-circle text-info' },
+			{ title: 'Books In', imageClass: 'fa fa-circle text-danger' },
+			{ title: 'Books Missing', imageClass: 'fa fa-circle text-warning' }
 		];
 
 		this.hoursChartType = ChartType.Line;
 		this.hoursChartData = {
-			labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+			labels: ['7:00AM', '8:00AM', '9:00AM', '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM'],
 			series: [
-				[287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
-				[67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
-				[23, 22, 40, 43, 60, 40, 55, 40, 42, 60, 50, 30]
+				[287, 385, 490, 492, 554, 586, 698, 695, 752],
+				[67, 152, 143, 240, 287, 335, 435, 437, 530],
+				[23, 22, 40, 43, 60, 40, 55, 40, 42]
 			]
 		};
 		this.hoursChartOptions = {
@@ -111,8 +133,12 @@ export class HomeComponent implements OnInit {
 			{ title: 'Romance', imageClass: 'fa fa-circle text-warning' },
 			{ title: 'Non-Fiction', imageClass: 'fa fa-circle text-secondary' }
 		];
-
-
 	}
 
+	ngOnInit() {
+	}
+
+	ngOnDestroy() {
+		this.liveSearches$.unsubscribe();
+	}
 }

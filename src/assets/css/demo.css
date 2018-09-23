@@ -1,3 +1,5 @@
+@import '../fonts/stylesheet.css';
+
 @media (min-width: 992px){
     .typo-line{
         padding-left: 140px;
@@ -36,7 +38,7 @@
 }
 
 #map{
-    position:relative;
+    position:fixed;
     width:100%;
     height: 100%;
 }
@@ -46,6 +48,13 @@
 }
 .places-buttons .btn{
     margin-bottom: 30px
+}
+.sidebar .nav > li {
+	display: inline-block;
+	width: 100%;
+}
+.sidebar .nav > li > a {
+	padding: 10px;
 }
 .sidebar .nav > li.active-pro{
     position: absolute;
@@ -61,4 +70,8 @@
 .table-upgrade td:nth-child(2),
 .table-upgrade td:nth-child(3){
     text-align: center;
+}
+
+.ct-label {
+	font-size: .75rem !important;
 }

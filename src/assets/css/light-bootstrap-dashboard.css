@@ -51,7 +51,6 @@ td,
 button.close {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
   font-weight: 400; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
@@ -104,16 +103,16 @@ h1 .subtitle {
   color: #1D62F0 !important; }
 
 .text-info, .text-info:hover {
-  color: #23CCEF !important; }
+  color: #b4ec51 !important; }
 
 .text-success, .text-success:hover {
   color: #87CB16 !important; }
 
 .text-warning, .text-warning:hover {
-  color: #FFA534 !important; }
+  color: #6dc8d7 !important; }
 
 .text-danger, .text-danger:hover {
-  color: #FB404B !important; }
+  color: #2394ae !important; }
 
 /*     General overwrite     */
 body,
@@ -122,7 +121,8 @@ body,
   position: relative; }
 
 a {
-  color: #23CCEF; }
+  color: #b4ec51;
+}
   a:hover, a:focus {
     color: #11bfe3;
     text-decoration: none; }
@@ -245,8 +245,8 @@ input:focus {
       font-size: 20px;
       margin: 10px 10px;
       color: #FFFFFF;
-      line-height: 20px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+	  line-height: 20px;
+	}
     .sidebar .logo .simple-text,
     .bootstrap-navbar .logo .simple-text {
       text-transform: uppercase;
@@ -345,8 +345,7 @@ input:focus {
       font-size: 20px;
       margin: 10px 10px;
       color: #FFFFFF;
-      line-height: 20px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      line-height: 20px;}
     .sidebar .logo .simple-text,
     .bootstrap-navbar .logo .simple-text {
       text-transform: uppercase;
@@ -1761,7 +1760,7 @@ input:focus {
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
-  font-size: 1.3rem;
+  font-size: .75rem;
   line-height: 1; }
 
 .ct-chart-line .ct-label,

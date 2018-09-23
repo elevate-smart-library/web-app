@@ -16,7 +16,7 @@ const routes: Routes = [
 	{ path: 'user', component: UserComponent },
 	{ path: 'table', component: TablesComponent },
 	{ path: 'typography', component: TypographyComponent },
-	{ path: 'icons', component: IconsComponent },
+	{ path: 'books', component: IconsComponent },
 	{ path: 'maps', component: MapsComponent },
 	{ path: 'notifications', component: NotificationsComponent },
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },

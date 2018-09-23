@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
 		let titlee = this.location.prepareExternalUrl(this.location.path());
 		titlee = titlee.split('/').pop();
 		this.sub = this.route.firstChild ? this.route.firstChild.params.subscribe(params => {
-			this.id = '/' + params['library'];
+			this.id = params['library'] ? ' - ' + params['library'] : null;
 		}) : null;
 		for (let item = 0; item < this.listTitles.length; item++) {
 			if (this.listTitles[item].path === titlee) {

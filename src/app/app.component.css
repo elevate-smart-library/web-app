@@ -1,0 +1,11 @@
+.sidebar:before, .sidebar:after {
+	display: none;
+}
+
+.sidebar-wrapper {
+	background-image: linear-gradient(to bottom right, rgba(22, 130, 176, 1), rgba(142, 204, 167, 1));
+}
+
+.navbar .navbar-nav .notification {
+	background-color: #f76b1c;
+}

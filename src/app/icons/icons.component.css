@@ -1,0 +1,19 @@
+.img-fluid {
+	width: 100%;
+	height: auto;
+	max-height: 500px;
+	max-width: 100%;
+}
+.font-icon-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.font-icon-detail {
+	text-align: left;
+	padding: 20px 10px;
+	cursor: pointer;
+}
+.empty-book {
+	margin: 100px 0 25px;
+}
